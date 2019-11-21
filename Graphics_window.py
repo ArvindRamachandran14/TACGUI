@@ -23,35 +23,32 @@ import time
 
 from datetime import datetime
 
+########################################## Other Pages ##########################################
+
+import Startpage
+
+import DPGT_graphics_page
+
+import SCT_graphics_page
+
+import CCT_graphics_page
+
 ########################################## Other modules ##########################################
 
 import numpy as np
 
 import random
 
+import serial
+
+
+#ser = serial.Serial('/dev/tty.usbserial-FTY3UOSS',9600,timeout=3)
+
 matplotlib.use("TkAgg") 
 
 style.use("ggplot")
 
 LARGE_FONT = ("Verdana", 12)
-
-Time = []
-
-Time_in_seconds = []
-
-Temperatures = []
-
-f = Figure(figsize=(5,5), dpi=100) 
-
-a = f.add_subplot(111) # 1 by 1 and this is plot number 1
-
-def animate(i): 
-
-	'''Function used to create live plot of Temperature vs Time in seconds '''
-
-	a.clear()
-
-	a.plot(Time_in_seconds, Temperatures)
 
 class Graphics_window(tk.Tk): # An object of class Graphics_window is also an object of class Tk, which is basiclaly a window object
 
@@ -73,56 +70,18 @@ class Graphics_window(tk.Tk): # An object of class Graphics_window is also an ob
 
 	 	self.frames = {}
 
-	 	#for F in (Startpage, PageOne, PageTwo, PageThree): #Need this if you have multiple pages you want to navigate to
+	 	for F in (Startpage.Startpage, DPGT_graphics_page.DPG_temperature, SCT_graphics_page.SC_temperature, CCT_graphics_page.CC_temperature):
 
-	 	frame = Startpage(container, self) #Passing the frame object and the window object
+	 	    frame = F(container, self) #Passing the frame object and the window object
 
-	 	self.frames[Startpage] = frame
+	 	    self.frames[F] = frame
 
-	 	frame.grid() #sticky is alighnment plus stretch
+	 	    frame.grid(row=0, column=0, sticky="nsew") #sticky is alighnment plus stretch
 
-	 	self.show_frame(Startpage) #Raise StartPage initally
+	 	self.show_frame(Startpage.Startpage) #Raise StartPage initally
 
 	 def show_frame(self, cont): #cont means controller - frame object eg. Startpage
 
 	 	frame = self.frames[cont]
 
 	 	frame.tkraise()
-
-class Startpage(tk.Frame):
-
-	def __init__(self, parent, controller): #parent is container (Frame object), controller is the master (Window object) or root
-
-		Time_initial = datetime.now()
-
-		tk.Frame.__init__(self, parent)
-
-		label = tk.Label(self, text="Graphics Window", font=LARGE_FONT)
-
-		label.pack(pady=10,padx=10)
-
-		button1 = ttk.Button(self, text="Generate live data", command=lambda: Startpage.generate_data())
-
-		button1.pack()
-
-		canvas = FigureCanvasTkAgg(f, self)
-
-		canvas.draw()
-
-		toolbar = NavigationToolbar2Tk(canvas, self)
-
-		toolbar.update()
-
-		canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
-
-		canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=True) # Oriented at top, fill it all over the space you've provided with pack, expand it to any additonal whitespace
-
-	def generate_data():
-
-		'''Used to generate data - adds a pair of Temp, Time data per click'''
-
-		Time.append(datetime.now())
-
-		Time_in_seconds.append((Time[-1]-Time[0]).seconds)
-
-		Temperatures.append(30 + random.randint(-6, 8)/10.0)

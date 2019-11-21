@@ -44,6 +44,9 @@ class Command_window(tk.Tk): # An object of class SeaofBTCapp is also an object 
 
 	 	frame = Startpage(container, self) #Passing the frame object and the window object
 
+	 	frame.grid_rowconfigure(0, weight=1)
+	 	frame.grid_columnconfigure(0, weight=1)
+
 	 	self.frames[Startpage] = frame
 
 	 	frame.grid(row=0,column=0,sticky="nsew") #sticky is alighnment plus stretch
@@ -64,18 +67,38 @@ class Startpage(tk.Frame):
 
 		tk.Frame.__init__(self, parent)
 
-		label = tk.Label(self, text="Enter command here", font=LARGE_FONT)
+		self.input_label = tk.Label(self, text="Enter command here", font=LARGE_FONT, height=5, width=30)
 
-		label.grid(row=0)
+		self.input_label.grid(row=0, column=0)
 
-		self.entry = tk.Text(controller)
+		self.input_text = tk.Text(controller, height=2, width=30, borderwidth=2,relief='solid')
 
-		self.entry.bind("<Return>", self.print_command)
+		self.input_text.bind("<Return>", self.print_command)
 
-		self.entry.grid(row=1)
+		self.input_text.bind("<Control_L>", self.delete_output)
 
+		self.input_text.grid(row=0, column=0)
+
+		self.output_label = tk.Label(self, text="Output", font=LARGE_FONT, height=4, width=30)
+
+		self.output_label.grid(row=2,  column=0)
+
+		self.output_text = tk.Text(controller, height=2, width=30, borderwidth=2,relief='solid')
+
+		self.output_text.grid(row=2,  column=0)
 
 	def print_command(self, event):
 
-		print(self.entry.get(1.0,'end-1c'))
+		self.output_text.insert(tk.END,self.input_text.get(1.0,'end-1c'))
 
+	def delete_output(self, event):
+
+		self.output_text.delete('1.0', tk.END)
+
+	def send_command(self, event):
+
+		ser = serial.Serial('/dev/tty.usbserial-FTY3UOSS',9600,timeout=3)
+
+		ser.write(self.input_text.get(1.0,'end-1c').encode())
+
+		Output_strings = ser.readline().decode()
