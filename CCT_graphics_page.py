@@ -138,7 +138,7 @@ def plot_live_CC_data(controller, start, log):
 
 		Time_CC_temp = Split_strings[1].split('\r')[0]
 
-		Time_CC.append(datetime.strptime(Time_CC_temp, '%m/%d/%y %H::%M::%S'))
+		Time_CC.append(datetime.strptime(Time_CC_temp, '%Y-%m-%d %H:%M:%S'))
 
 		Time_in_seconds_CC_temp = (Time_CC[-1]-Time_CC[0]).seconds
 
