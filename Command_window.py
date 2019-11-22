@@ -113,10 +113,9 @@ class Startpage(tk.Frame):
 
 		self.print_output(self.controller)
 
-
 	def print_output(self, controller):
 
-		if self.running_text_output = True:
+		if self.running_text_output == True:
 
 			ser = serial.Serial('/dev/ttyUSB0',9600,timeout=3)
 
@@ -124,4 +123,4 @@ class Startpage(tk.Frame):
 
 			self.output_text.insert(tk.END,Output_strings)
 
-			controller.after(1000, print_output, controller)		
+			controller.after(1000, self.print_output, controller)		
