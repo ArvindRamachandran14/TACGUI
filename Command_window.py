@@ -103,6 +103,12 @@ class Startpage(tk.Frame):
 
 		ser.write(self.input_text.get(1.0,'end-1c').encode())
 
+		self.print_output()
+
+	def print_output(self):
+
+		ser = serial.Serial('/dev/ttyUSB0',9600,timeout=3)
+
 		Output_strings = ser.readline().decode()
 
 		self.output_text.insert(tk.END,Output_strings)
