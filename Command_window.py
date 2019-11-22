@@ -69,6 +69,8 @@ class Startpage(tk.Frame):
 
 		tk.Frame.__init__(self, parent)
 
+		self.running_text_output = True
+
 		self.controller = controller
 
 		self.input_label = tk.Label(self, text="Enter command here", font=LARGE_FONT, height=5, width=30)
@@ -101,19 +103,25 @@ class Startpage(tk.Frame):
 
 	def send_command(self, event):
 
+		self.running_text_output = False
+
 		ser = serial.Serial('/dev/ttyUSB0',9600,timeout=3)
 
 		ser.write(self.input_text.get(1.0,'end-1c').encode())
 
-		time.sleep(4)
+		self.running_text_output = True
 
-		self.print_output()
+		self.print_output(self.controller)
 
 
-	def print_output(self):
+	def print_output(self, controller):
 
-		ser = serial.Serial('/dev/ttyUSB0',9600,timeout=3)
+		if self.running_text_output = True:
 
-		Output_strings = ser.readline().decode()
+			ser = serial.Serial('/dev/ttyUSB0',9600,timeout=3)
 
-		self.output_text.insert(tk.END,Output_strings)
+			Output_strings = ser.readline().decode()
+
+			self.output_text.insert(tk.END,Output_strings)
+
+			controller.after(1000, print_output, controller)		
