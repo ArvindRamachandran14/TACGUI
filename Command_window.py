@@ -69,6 +69,8 @@ class Startpage(tk.Frame):
 
 		tk.Frame.__init__(self, parent)
 
+		self.controller = controller
+
 		self.input_label = tk.Label(self, text="Enter command here", font=LARGE_FONT, height=5, width=30)
 
 		self.input_label.grid(row=0, column=0)
@@ -103,7 +105,10 @@ class Startpage(tk.Frame):
 
 		ser.write(self.input_text.get(1.0,'end-1c').encode())
 
+		time.sleep(4)
+
 		self.print_output()
+
 
 	def print_output(self):
 
