@@ -51,6 +51,8 @@ f_SC = Figure(figsize=(5,5), dpi=100)
 
 a_SC = f_SC.add_subplot(111) # 1 by 1 and this is plot number 1
 
+ser = serial.Serial('/dev/ttyUSB0',9600,timeout=3)
+
 def animate_SC(i): 
 
 	'''Function used to create live plot of Temperature vs Time in seconds '''
@@ -128,7 +130,7 @@ def plot_live_SC_data(controller, start, log):
 
 		ser.reset_output_buffer()
 
-		ser.write('g-SC_T1\n')
+		ser.write('g-SC_T1\n'.encode())
 
 		Output_strings = ser.readline().decode()
 

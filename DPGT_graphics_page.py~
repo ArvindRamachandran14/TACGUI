@@ -39,30 +39,30 @@ style.use("ggplot")
 
 LARGE_FONT = ("Verdana", 12)
 
-Time_CC = []
+Time_DPG = []
 
-Time_in_seconds_CC = []
+Time_in_seconds_DPG = []
 
-Temperatures_CC = []
+Temperatures_DPG = []
 
 LARGE_FONT = ("Verdana", 12)
 
-f_CC = Figure(figsize=(5,5), dpi=100) 
+f_DPG = Figure(figsize=(5,5), dpi=100) 
 
-a_CC = f_CC.add_subplot(111) # 1 by 1 and this is plot number 1
+a_DPG = f_DPG.add_subplot(111) # 1 by 1 and this is plot number 1
 
 ser = serial.Serial('/dev/ttyUSB0',9600,timeout=3)
 
-def animate_CC(i): 
+def animate_DPG(i): 
 
 	'''Function used to create live plot of Temperature vs Time in seconds '''
 
-	a_CC.clear()
+	a_DPG.clear()
 
-	a_CC.plot(Time_in_seconds_CC, Temperatures_CC)
+	a_DPG.plot(Time_in_seconds_DPG, Temperatures_DPG)
 
 
-class CC_temperature(tk.Frame):
+class DPG_temperature(tk.Frame):
 
 	def __init__(self, parent, controller): #parent is container, controller is the master 
 
@@ -76,27 +76,27 @@ class CC_temperature(tk.Frame):
 
 		button1.pack()
 
-		button2 = ttk.Button(self, text="Plot live data", command=lambda: plot_live_CC_data(controller, True, False))
+		button2 = ttk.Button(self, text="Plot live data", command=lambda: plot_live_DPG_data(controller, True, False))
 
 		button2.pack()
 
-		button3 = ttk.Button(self, text="Reset", command=lambda: reset_CC_data(controller))
+		button3 = ttk.Button(self, text="Reset", command=lambda: reset_DPG_data(controller))
 
 		button3.pack()
 
-		button4 = ttk.Button(self, text="Stop plotting", command=lambda: stop_plotting_CC(controller))
+		button4 = ttk.Button(self, text="Stop plotting", command=lambda: stop_plotting_DPG(controller))
 
 		button4.pack()
 
-		button5 = ttk.Button(self, text="Resume plotting", command=lambda: resume_plotting_CC(controller))
+		button5 = ttk.Button(self, text="Resume plotting", command=lambda: resume_plotting_DPG(controller))
 
 		button5.pack()
 
-		button6 = ttk.Button(self, text="log data", command=lambda: log_CC_data(controller))
+		button6 = ttk.Button(self, text="log data", command=lambda: log_DPG_data(controller))
 
 		button6.pack()
 
-		canvas = FigureCanvasTkAgg(f_CC, self)
+		canvas = FigureCanvasTkAgg(f_DPG, self)
 
 		canvas.draw()
 
@@ -108,84 +108,84 @@ class CC_temperature(tk.Frame):
 
 		canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=True) # Oriented at top, fill it all over the space you've provided with pack, expand it to any additonal whitespace
 
-def plot_live_CC_data(controller, start, log): 
+def plot_live_DPG_data(controller, start, log): 
 
-	global running_CC
+	global running_DPG
 
 	if start == True: #start is only true when plot live data is triggered
 
-		running_CC = True
+		running_DPG = True
 
-		global Time_CC, Time_in_seconds_CC, Temperatures_CC
+		global Time_DPG, Time_in_seconds_DPG, Temperatures_DPG
 
-		Time_CC = []
+		Time_DPG = []
 
-		Time_in_seconds_CC = []
+		Time_in_seconds_DPG = []
 
-		Temperatures_CC = []
+		Temperatures_DPG = []
 
-	if running_CC == True:
+	if running_DPG == True:
 
 		ser.reset_input_buffer()
 
 		ser.reset_output_buffer()
 
-		ser.write('g-CC_T1\n'.encode())
+		ser.write('g-DPG_T1\n')
 
 		Output_strings = ser.readline().decode()
 
 		Split_strings = Output_strings.split('---')
 
-		Time_CC_temp = Split_strings[1].split('\r')[0]
+		Time_DPG_temp = Split_strings[1].split('\r')[0]
 
-		Time_CC.append(Time_CC_temp)
+		Time_DPG.append(Time_DPG_temp)
 
-		Time_in_seconds_CC_temp = (Time_CC[-1]-Time_CC[0]).seconds
+		Time_in_seconds_DPG_temp = (Time_DPG[-1]-Time_DPG[0]).seconds
 
-		Time_in_seconds_CC.append(Time_in_seconds_CC_temp)
+		Time_in_seconds_DPG.append(Time_in_seconds_DPG_temp)
 
-		Temperatures_CC_temp = float(Split_strings[0])
+		Temperatures_DPG_temp = float(Split_strings[0])
 
-		Temperatures_CC.append(Temperatures_CC_temp)
+		Temperatures_DPG.append(Temperatures_DPG_temp)
 
-		controller.after(1000, plot_live_CC_data, controller, False, False)		
+		controller.after(1000, plot_live_DPG_data, controller, False, False)		
 
-def stop_plotting_CC(controller):
+def stop_plotting_DPG(controller):
 
-	global running_CC 
+	global running_DPG 
 
-	running_CC = False
+	running_DPG = False
 
-def resume_plotting_CC(controller):
+def resume_plotting_DPG(controller):
 
-	global running_CC 
+	global running_DPG 
 
-	running_CC = True
+	running_DPG = True
 
-	plot_live_CC_data(controller, False, False)
+	plot_live_DPG_data(controller, False, False)
 
-def reset_CC_data(controller):
+def reset_DPG_data(controller):
 
-	global Time_CC, Time_in_seconds_CC, Temperatures_CC, running_CC
+	global Time_DPG, Time_in_seconds_DPG, Temperatures_DPG, running_DPG
 
-	Time_CC = []
+	Time_DPG = []
 
-	Time_in_seconds_CC = []
+	Time_in_seconds_DPG = []
 
-	Temperatures_CC = []
+	Temperatures_DPG = []
 
-	running_CC = False
+	running_DPG = False
 
-def log_CC_data(controller):
+def log_DPG_data(controller):
 
 	print('Logging started')
 
-	file = open('Data_CC.csv','w+')
+	file = open('Data_DPG.csv','w+')
 
 	file.write('Time,Time in seconds,Temperature')
 
-	for i in range(len(Time_CC)):
-		file.write(str(Time_CC[i]) +','+str(Time_in_seconds_CC[i])+','+str(Temperatures_CC[i]))
+	for i in range(len(Time_DPG)):
+		file.write(str(Time_DPG[i]) +','+str(Time_in_seconds_DPG[i])+','+str(Temperatures_DPG[i]))
 		file.write('\n')
 
 	file.close()

@@ -61,7 +61,7 @@ class Command_window(tk.Tk): # An object of class SeaofBTCapp is also an object 
 
 	 	frame.tkraise()
 
-class Startpage(tk.Frame):
+class Startpage(tk.Frame, serial):
 
 	def __init__(self, parent, controller): #parent is container (Frame object), controller is the master (Window object) or root
 

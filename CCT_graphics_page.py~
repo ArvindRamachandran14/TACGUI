@@ -130,7 +130,7 @@ def plot_live_CC_data(controller, start, log):
 
 		ser.reset_output_buffer()
 
-		ser.write('g-CC_T1\n'.encode())
+		ser.write('g-CC_T1\n')
 
 		Output_strings = ser.readline().decode()
 
