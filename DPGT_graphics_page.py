@@ -134,6 +134,8 @@ def plot_live_DPG_data(controller, start, log):
 
 		Output_strings = ser.readline().decode()
 
+		print(Output_strings)
+
 		Split_strings = Output_strings.split('---')
 
 		Time_DPG_temp = Split_strings[1].split('\r')[0]
