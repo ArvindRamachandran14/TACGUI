@@ -148,7 +148,7 @@ def plot_live_SC_data(controller, start, log):
 
 		Time_in_seconds_SC.append(Time_in_seconds_SC_temp)
 
-		Time_in_minutes_SC_temp = (Time_SC[-1]-Time_SC[0]).minutes
+		Time_in_minutes_SC_temp = Time_in_seconds_SC_temp/60.0
 
 		Time_in_minutes_SC.append(Time_in_minutes_SC_temp)
 
