@@ -43,7 +43,7 @@ Time_SC = []
 
 Time_in_seconds_SC = []
 
-Time_in_minutes_SC
+Time_in_minutes_SC = []
 
 Temperatures_SC = []
 
