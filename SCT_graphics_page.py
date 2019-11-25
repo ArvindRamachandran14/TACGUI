@@ -43,6 +43,8 @@ Time_SC = []
 
 Time_in_seconds_SC = []
 
+Time_in_minutes_SC
+
 Temperatures_SC = []
 
 LARGE_FONT = ("Verdana", 12)
@@ -59,7 +61,7 @@ def animate_SC(i):
 
 	a_SC.clear()
 
-	a_SC.plot(Time_in_seconds_SC, Temperatures_SC)
+	a_SC.plot(Time_in_minutes_SC, Temperatures_SC)
 
 
 class SC_temperature(tk.Frame):
@@ -68,11 +70,11 @@ class SC_temperature(tk.Frame):
 
 		tk.Frame.__init__(self, parent)
 
-		label = ttk.Label(self, text="Dew Point Generator Temperature", font=LARGE_FONT)
+		label = ttk.Label(self, text="Sample Chamber Temperature", font=LARGE_FONT)
 
 		label.pack(pady=10,padx=10)
 
-		button1 = ttk.Button(self, text="Back to home", command=lambda: controller.show_frame(Startpage))
+		button1 = ttk.Button(self, text="Back to home", command=lambda: controller.show_frame(Startpage.Startpage))
 
 		button1.pack()
 
@@ -116,13 +118,15 @@ def plot_live_SC_data(controller, start, log):
 
 		running_SC = True
 
-		global Time_SC, Time_in_seconds_SC, Temperatures_SC
+		global Time_SC, Time_in_seconds_SC, Temperatures_SC, Time_in_minutes_SC
 
 		Time_SC = []
 
 		Time_in_seconds_SC = []
 
 		Temperatures_SC = []
+
+		Time_in_minutes_SC = []
 
 	if running_SC == True:
 
@@ -143,6 +147,10 @@ def plot_live_SC_data(controller, start, log):
 		Time_in_seconds_SC_temp = (Time_SC[-1]-Time_SC[0]).seconds
 
 		Time_in_seconds_SC.append(Time_in_seconds_SC_temp)
+
+		Time_in_minutes_SC.append(Time_in_minutes_SC_temp)
+
+		Time_in_minutes_SC_temp = (Time_SC[-1]-Time_SC[0]).minutes
 
 		Temperatures_SC_temp = float(Split_strings[0])
 

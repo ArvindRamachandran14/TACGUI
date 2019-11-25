@@ -43,6 +43,8 @@ Time_CC = []
 
 Time_in_seconds_CC = []
 
+Time_in_minutes_CC
+
 Temperatures_CC = []
 
 LARGE_FONT = ("Verdana", 12)
@@ -59,7 +61,7 @@ def animate_CC(i):
 
 	a_CC.clear()
 
-	a_CC.plot(Time_in_seconds_CC, Temperatures_CC)
+	a_CC.plot(Time_in_minutes_CC, Temperatures_CC)
 
 
 class CC_temperature(tk.Frame):
@@ -68,11 +70,11 @@ class CC_temperature(tk.Frame):
 
 		tk.Frame.__init__(self, parent)
 
-		label = ttk.Label(self, text="Dew Point Generator Temperature", font=LARGE_FONT)
+		label = ttk.Label(self, text="Sample Chamber Temperature", font=LARGE_FONT)
 
 		label.pack(pady=10,padx=10)
 
-		button1 = ttk.Button(self, text="Back to home", command=lambda: controller.show_frame(Startpage))
+		button1 = ttk.Button(self, text="Back to home", command=lambda: controller.show_frame(Startpage.Startpage))
 
 		button1.pack()
 
@@ -116,13 +118,15 @@ def plot_live_CC_data(controller, start, log):
 
 		running_CC = True
 
-		global Time_CC, Time_in_seconds_CC, Temperatures_CC
+		global Time_CC, Time_in_seconds_CC, Temperatures_CC, Time_in_minutes_CC
 
 		Time_CC = []
 
 		Time_in_seconds_CC = []
 
 		Temperatures_CC = []
+
+		Time_in_minutes_CC = []
 
 	if running_CC == True:
 
@@ -143,6 +147,10 @@ def plot_live_CC_data(controller, start, log):
 		Time_in_seconds_CC_temp = (Time_CC[-1]-Time_CC[0]).seconds
 
 		Time_in_seconds_CC.append(Time_in_seconds_CC_temp)
+
+		Time_in_minutes_CC.append(Time_in_minutes_CC_temp)
+
+		Time_in_minutes_CC_temp = (Time_CC[-1]-Time_CC[0]).minutes
 
 		Temperatures_CC_temp = float(Split_strings[0])
 
