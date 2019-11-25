@@ -148,9 +148,9 @@ def plot_live_CC_data(controller, start, log):
 
 		Time_in_seconds_CC.append(Time_in_seconds_CC_temp)
 
-		Time_in_minutes_CC.append(Time_in_minutes_CC_temp)
-
 		Time_in_minutes_CC_temp = (Time_CC[-1]-Time_CC[0]).minutes
+
+		Time_in_minutes_CC.append(Time_in_minutes_CC_temp)
 
 		Temperatures_CC_temp = float(Split_strings[0])
 
