@@ -186,28 +186,28 @@ def reset_SC_data(controller):
 
 def log_SC_data(controller):
 
-	ser.write('g-SC_P'.encode())
+	ser.write('g-SC_P\n'.encode())
 
 	P =	(ser.readline().decode()).split('\r')[0].split('---')[0]
 
-	ser.write('g-SC_I'.encode())
+	ser.write('g-SC_I\n'.encode())
 
 	I =	(ser.readline().decode()).split('\r')[0].split('---')[0]
 
-	ser.write('g-SC_D'.encode())
+	ser.write('g-SC_D\n'.encode())
 
 	D =	(ser.readline().decode()).split('\r')[0].split('---')[0]
 
 	print('Logging started')
 
-	file = open('Data_SC_'+Time_SC[0]+'.csv','w+')
+	file = open('Data_SC_'+str(Time_SC[0])+'.csv','w+')
 
-	file.write('P='+str(P)+' I='+str(I) +'D='+str(D)+'\n')
+	file.write('P='+str(P)+' I='+str(I) +' D='+str(D)+'\n')
 
-	file.write('Time,Time in seconds,Temperature\n')
+	file.write('Time,Temperature\n')
 
 	for i in range(len(Time_SC)):
-		file.write(str(Time_SC[i]) +','+str(Time_in_seconds_SC[i])+','+str(Temperatures_SC[i]))
+		file.write(str(Time_SC[i]) +','+str(Temperatures_SC[i]))
 		file.write('\n')
 
 	file.close()

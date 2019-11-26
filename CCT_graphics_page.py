@@ -200,7 +200,7 @@ def log_CC_data(controller):
 
 	print('Logging started')
 
-	file = open('Data_CC_'+Time_CC[0]+'.csv','w+')
+	file = open('Data_CC_'+str(Time_CC[0])+'.csv','w+')
 
 	file.write('P='+str(P)+' I='+str(I) +'D='+str(D)+'\n')
 

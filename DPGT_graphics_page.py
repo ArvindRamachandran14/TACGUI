@@ -196,7 +196,7 @@ def log_DPG_data(controller):
 
 	print('Logging started')
 
-	file = open('Data_DPG_'+Time_DPG[0]+'.csv','w+')
+	file = open('Data_DPG_'+str(Time_DPG[0])+'.csv','w+')
 
 	file.write('P='+str(P)+' I='+str(I) +'D='+str(D)+'\n')
 
