@@ -72,7 +72,7 @@ class DPG_temperature(tk.Frame):
 
 		label.pack(pady=10,padx=10)
 
-		button1 = ttk.Button(self, text="Back to home", command=lambda: controller.show_frame(Startpage))
+		button1 = ttk.Button(self, text="Back to home", command=lambda: controller.show_frame(Startpage.Startpage))
 
 		button1.pack()
 
