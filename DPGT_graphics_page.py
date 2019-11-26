@@ -134,7 +134,7 @@ def plot_live_DPG_data(controller, start, log):
 
 		Output_strings = ser.readline().decode()
 
-		print(Output_strings)
+		#print(Output_strings)
 
 		Split_strings = Output_strings.split('---')
 

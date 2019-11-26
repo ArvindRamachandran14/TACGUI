@@ -103,10 +103,21 @@ class Startpage(tk.Frame):
 
 	def send_command(self, event):
 
-		self.running_text_output = False
-
 		ser = serial.Serial('/dev/ttyUSB0',9600,timeout=3)
 
-		ser.write(self.input_text.get(1.0,'end-1c').encode())
+		input_text_string = self.input_text.get(1.0,'end-1c')		
+		
+		print(input_text_string)
 
-		self.output_text.insert(tk.END, ser.readline().decode())
+		ser.write((input_text_string+'\n').encode())
+		
+		output_text_string = (ser.readline().decode()).split('\r')[0]
+
+		if output_text_string.split('---'):
+	
+			self.output_text.insert(tk.END, output_text_string.split('---')[0])
+	
+		else:
+
+			self.output_text.insert(tk.END, output_text_string)
+
