@@ -182,7 +182,23 @@ def log_DPG_data(controller):
 
 	print('Logging started')
 
+	ser.write('g-DPG_P'.encode())
+
+	P =	(ser.readline().decode()).split('\r')[0].split('---')[0]
+
+	ser.write('g-DPG_I'.encode())
+
+	I =	(ser.readline().decode()).split('\r')[0].split('---')[0]
+
+	ser.write('g-DPG_D'.encode())
+
+	D =	(ser.readline().decode()).split('\r')[0].split('---')[0]
+
+	print('Logging started')
+
 	file = open('Data_DPG_'+Time_DPG[0]+'.csv','w+')
+
+	file.write('P='+str(P)+' I='+str(I) +'D='+str(D)+'\n')
 
 	file.write('Time,Time in seconds,Temperature\n')
 

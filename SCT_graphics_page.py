@@ -188,15 +188,15 @@ def log_SC_data(controller):
 
 	ser.write('g-SC_P'.encode())
 
-	P =	ser.readline.docode()
+	P =	(ser.readline().decode()).split('\r')[0].split('---')[0]
 
 	ser.write('g-SC_I'.encode())
 
-	I =	ser.readline.docode()
+	I =	(ser.readline().decode()).split('\r')[0].split('---')[0]
 
 	ser.write('g-SC_D'.encode())
 
-	D =	ser.readline.docode()
+	D =	(ser.readline().decode()).split('\r')[0].split('---')[0]
 
 	print('Logging started')
 
