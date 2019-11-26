@@ -141,7 +141,7 @@ def plot_live_SC_data(controller, start, log):
 		Split_strings = Output_strings.split('---')
 
 		Time_SC_temp = Split_strings[1].split('\r')[0]
-
+`
 		Time_SC.append(datetime.strptime(Time_SC_temp, '%Y-%m-%d %H:%M:%S'))
 
 		Time_in_seconds_SC_temp = (Time_SC[-1]-Time_SC[0]).seconds
@@ -186,11 +186,25 @@ def reset_SC_data(controller):
 
 def log_SC_data(controller):
 
+	ser.write('g-SC_P'.encode())
+
+	P =	ser.readline.docode()
+
+	ser.write('g-SC_I'.encode())
+
+	I =	ser.readline.docode()
+
+	ser.write('g-SC_D'.encode())
+
+	D =	ser.readline.docode()
+
 	print('Logging started')
 
-	file = open('Data_SC.csv','w+')
+	file = open('Data_SC_'+Time_SC[0]+'.csv','w+')
 
-	file.write('Time,Time in seconds,Temperature')
+	file.write('P='+str(P)+' I='+str(I) +'D='+str(D)+'\n')
+
+	file.write('Time,Time in seconds,Temperature\n')
 
 	for i in range(len(Time_SC)):
 		file.write(str(Time_SC[i]) +','+str(Time_in_seconds_SC[i])+','+str(Temperatures_SC[i]))

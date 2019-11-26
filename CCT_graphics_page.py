@@ -141,14 +141,14 @@ def plot_live_CC_data(controller, start, log):
 		Split_strings = Output_strings.split('---')
 
 		Time_CC_temp = Split_strings[1].split('\r')[0]
-
+`
 		Time_CC.append(datetime.strptime(Time_CC_temp, '%Y-%m-%d %H:%M:%S'))
 
 		Time_in_seconds_CC_temp = (Time_CC[-1]-Time_CC[0]).seconds
 
 		Time_in_seconds_CC.append(Time_in_seconds_CC_temp)
 
-		Time_in_minutes_CC_temp = Time_in_seconds_CC/60.0
+		Time_in_minutes_CC_temp = Time_in_seconds_CC_temp/60.0
 
 		Time_in_minutes_CC.append(Time_in_minutes_CC_temp)
 
@@ -186,11 +186,25 @@ def reset_CC_data(controller):
 
 def log_CC_data(controller):
 
+	ser.write('g-CC_P'.encode())
+
+	P =	ser.readline.docode()
+
+	ser.write('g-CC_I'.encode())
+
+	I =	ser.readline.docode()
+
+	ser.write('g-CC_D'.encode())
+
+	D =	ser.readline.docode()
+
 	print('Logging started')
 
-	file = open('Data_CC.csv','w+')
+	file = open('Data_CC_'+Time_CC[0]+'.csv','w+')
 
-	file.write('Time,Time in seconds,Temperature')
+	file.write('P='+str(P)+' I='+str(I) +'D='+str(D)+'\n')
+
+	file.write('Time,Time in seconds,Temperature\n')
 
 	for i in range(len(Time_CC)):
 		file.write(str(Time_CC[i]) +','+str(Time_in_seconds_CC[i])+','+str(Temperatures_CC[i]))

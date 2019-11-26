@@ -182,9 +182,9 @@ def log_DPG_data(controller):
 
 	print('Logging started')
 
-	file = open('Data_DPG.csv','w+')
+	file = open('Data_DPG_'+Time_DPG[0]+'.csv','w+')
 
-	file.write('Time,Time in seconds,Temperature')
+	file.write('Time,Time in seconds,Temperature\n')
 
 	for i in range(len(Time_DPG)):
 		file.write(str(Time_DPG[i]) +','+str(Time_in_seconds_DPG[i])+','+str(Temperatures_DPG[i]))
