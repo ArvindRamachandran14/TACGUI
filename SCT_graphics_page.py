@@ -141,7 +141,7 @@ def plot_live_SC_data(controller, start, log):
 		Split_strings = Output_strings.split('---')
 
 		Time_SC_temp = Split_strings[1].split('\r')[0]
-`
+
 		Time_SC.append(datetime.strptime(Time_SC_temp, '%Y-%m-%d %H:%M:%S'))
 
 		Time_in_seconds_SC_temp = (Time_SC[-1]-Time_SC[0]).seconds
