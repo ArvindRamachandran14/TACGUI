@@ -140,7 +140,7 @@ def plot_live_DPG_data(controller, start, log):
 
 		Time_DPG_temp = Split_strings[1].split('\r')[0]
 
-		Time_DPG.append(datetime.strptime(Time_DPG_temp, '%Y-%m-%d %H:%M:%S'))
+		Time_DPG.append(datetime.strptime(Time_DPG_temp, '%Y-%m-%d %H:%M:%S.%f'))
 
 		Time_in_seconds_DPG_temp = (Time_DPG[-1]-Time_DPG[0]).seconds
 

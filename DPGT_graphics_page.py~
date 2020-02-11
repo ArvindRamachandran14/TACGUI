@@ -140,7 +140,7 @@ def plot_live_DPG_data(controller, start, log):
 
 		Time_DPG_temp = Split_strings[1].split('\r')[0]
 
-		Time_DPG.append(datetime.strptime(Time_DPG_temp, '%Y-%m-%d %H:%M:%S'))
+		Time_DPG.append(datetime.strptime(Time_DPG_temp, '%Y-%m-%d %H:%M:%s'))
 
 		Time_in_seconds_DPG_temp = (Time_DPG[-1]-Time_DPG[0]).seconds
 
@@ -196,7 +196,7 @@ def log_DPG_data(controller):
 
 	print('Logging started')
 
-	file = open('Data_DPG_'+Time_DPG[0]+'.csv','w+')
+	file = open('Data_DPG_'+str(Time_DPG[0])+'.csv','w+')
 
 	file.write('P='+str(P)+' I='+str(I) +'D='+str(D)+'\n')
 
